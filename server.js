@@ -35,6 +35,15 @@ app.post("/api/usuarios", (req, res) => {
   });
 });
 
+// ✅ AGREGAR ESTO AL FINAL — Ruta de prueba para Render
+app.get("/", (req, res) => {
+  res.send("¡Servidor de Secundaria 77 funcionando correctamente! ✅");
+});
+
+// ✅ AGREGAR ESTO TAMBIÉN — Para que el servidor arranque
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});
 // 🔐 LOGIN DE USUARIOS
 app.post("/api/login", (req, res) => {
   const { usuario, contrasena } = req.body;
