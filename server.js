@@ -7,6 +7,19 @@ const supabase = createClient(
   "https://TU-PROJECT-URL.supabase.co",   // remplaza por tu real
   "TU-CLAVE-ANON"
 );
+app.get("/probar-supabase", async (req, res) => {
+  const { data, error } = await supabase
+    .from("tabla_usuarios")
+    .select("*")
+    .limit(1);
+
+  if (error) {
+    console.error("❌ Error Supabase:", error);
+    return res.status(500).json({ error: "❌ No se pudo conectar a Supabase" });
+  }
+
+  res.json({ mensaje: "✅ Conectado correctamente", ejemplo: data });
+});
 
 const app = express();
 const PORT = 3000;
