@@ -5,6 +5,11 @@ const { createClient } = require("@supabase/supabase-js");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
+app.options('*', cors()); // ✅ << ESTA LÍNEA
+app.use(express.json());
+
+
 // Supabase config
 const supabase = createClient(
   "https://ohjdzyzckqeepbnezcem.supabase.co",
