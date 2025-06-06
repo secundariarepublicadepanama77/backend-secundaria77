@@ -1,6 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-const db = require("./database");
+const { createClient } = require("@supabase/supabase-js");
+
+// Claves de Supabase (cópialas desde tu dashboard)
+const SUPABASE_URL = "https://ohjdzyzckqeepbnezcem.supabase.co";
+const SUPABASE_KEY = "TU_CLAVE_ANON"; // 🔁 reemplaza con la anon key que copiaste
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
 
 const app = express();
 const PORT = 3000;
