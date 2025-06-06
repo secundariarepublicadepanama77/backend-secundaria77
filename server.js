@@ -16,7 +16,17 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public")); // Servir frontend desde /public
+// ✅ AGREGAR ESTO AL FINAL — Ruta de prueba para Render
+app.get("/", (req, res) => {
+  res.send("¡Servidor de Secundaria 77 funcionando correctamente! ✅");
+});
 
+// ✅ PRUEBA DE CONEXIÓN A SUPABASE
+app.get("/probar-supabase", async (req, res) => {
+  const { data, error } = await supabase.from("tabla_usuarios").select("*").limit(1);
+  if (error) return res.status(500).json({ error: "❌ No se pudo conectar a Supabase" });
+  res.json({ mensaje: "✅ Conectado correctamente", ejemplo: data });
+});
 // 🟢 AGREGAR USUARIO
 app.post("/api/usuarios", (req, res) => {
   const { nombre, usuario, contrasena, tipo } = req.body;
@@ -40,11 +50,6 @@ app.post("/api/usuarios", (req, res) => {
 
     res.status(201).json({ mensaje: "Usuario agregado", id: this.lastID });
   });
-});
-
-// ✅ AGREGAR ESTO AL FINAL — Ruta de prueba para Render
-app.get("/", (req, res) => {
-  res.send("¡Servidor de Secundaria 77 funcionando correctamente! ✅");
 });
 
 // ✅ AGREGAR ESTO TAMBIÉN — Para que el servidor arranque
