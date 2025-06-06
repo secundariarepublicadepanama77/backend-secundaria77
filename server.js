@@ -1,5 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+app.use(cors({
+  origin: "https://secundariarepublicadepanama77.github.io", // ✅ Tu frontend real
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: false
+}));
+app.options("*", cors()); // ✅ Soporte para preflight (OPTIONS)
+
 const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
