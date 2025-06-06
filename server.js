@@ -4,9 +4,10 @@ const cors = require("cors");
 const { createClient } = require("@supabase/supabase-js");
 
 const supabase = createClient(
-  "https://TU-PROJECT-URL.supabase.co",   // remplaza por tu real
-  "TU-CLAVE-ANON"
+  "https://ohjdzyzckqeepbnezcem.supabase.co", // ✅ Tu project URL real
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oamR6eXpja3FlZXBibmV6Y2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkxODIzNTUsImV4cCI6MjA2NDc1ODM1NX0.6Qtr7jk8Grr18FxRctmQqK_mZoNUsSaq8SUhZItFSk8"               // ✅ Tu anon public key real
 );
+
 app.get("/probar-supabase", async (req, res) => {
   const { data, error } = await supabase
     .from("tabla_usuarios")
@@ -33,12 +34,6 @@ app.get("/", (req, res) => {
   res.send("¡Servidor de Secundaria 77 funcionando correctamente! ✅");
 });
 
-// ✅ PRUEBA DE CONEXIÓN A SUPABASE
-app.get("/probar-supabase", async (req, res) => {
-  const { data, error } = await supabase.from("tabla_usuarios").select("*").limit(1);
-  if (error) return res.status(500).json({ error: "❌ No se pudo conectar a Supabase" });
-  res.json({ mensaje: "✅ Conectado correctamente", ejemplo: data });
-});
 // 🟢 AGREGAR USUARIO
 app.post("/api/usuarios", (req, res) => {
   const { nombre, usuario, contrasena, tipo } = req.body;
