@@ -1,23 +1,23 @@
 const express = require("express");
 const cors = require("cors");
+const { createClient } = require("@supabase/supabase-js");
+
+const app = express(); // ✅ Primero creamos la app
+const PORT = process.env.PORT || 3000;
+
+// ✅ Configuración correcta de CORS
 app.use(cors({
-  origin: "https://secundariarepublicadepanama77.github.io", // ✅ Tu frontend real
+  origin: "https://secundariarepublicadepanama77.github.io", // tu frontend real
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: false
 }));
-app.options("*", cors()); // ✅ Soporte para preflight (OPTIONS)
+app.options("*", cors()); // Para peticiones preflight
 
-const { createClient } = require("@supabase/supabase-js");
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(cors());
-app.options('*', cors()); // ✅ << ESTA LÍNEA
+// ✅ Middleware después de definir app
 app.use(express.json());
+app.use(express.static("public"));
 
-
-// Supabase config
+// 🔗 Configura tu conexión a Supabase
 const supabase = createClient(
   "https://ohjdzyzckqeepbnezcem.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oamR6eXpja3FlZXBibmV6Y2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkxODIzNTUsImV4cCI6MjA2NDc1ODM1NX0.6Qtr7jk8Grr18FxRctmQqK_mZoNUsSaq8SUhZItFSk8"
